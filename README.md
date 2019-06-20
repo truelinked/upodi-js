@@ -1,5 +1,5 @@
 # upodi-js
-Unofficial library for consuming the upodi.com API
+Unofficial NodeJs library for consuming the upodi.com API
 
 ## Overview
 * [Documentation](https://docs.upodi.com)
