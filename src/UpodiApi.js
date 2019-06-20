@@ -26,7 +26,7 @@ module.exports = class UpodiApi {
 
   async send(path, method = 'GET', body = undefined) {
     const bearer = Buffer.from(this.__apiKey).toString('base64')
-    var options = {
+    let options = {
       host: 'api.upodi.io',
       path: '/v3/' + path,
       method: method,
@@ -43,15 +43,13 @@ module.exports = class UpodiApi {
       https.get(options, (resp) => {
         console.log(resp.statusMessage)
         /// crap here
-        if (resp.statusCode == 401) {
+        if (401 === resp.statusCode) {
           return reject('access denied')
         }
 
         let data = '';
 
-        resp.on('data', (chunk) => {
-          data += chunk;
-        })
+        resp.on('data', (chunk) => data += chunk);
 
         resp.on('end', () => {
           try {
@@ -62,7 +60,7 @@ module.exports = class UpodiApi {
           return resolve(data)
         })
 
-      }).on("error", (err) => {
+      }).on('error', (err) => {
         reject(err)
       })
     })
