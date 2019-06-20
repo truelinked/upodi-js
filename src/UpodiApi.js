@@ -2,6 +2,7 @@
 
 const ApiError = require('./UpodiApiError')
 const CustomerService = require('./CustomerService')
+const PaymentMethodService = require('./PaymentMethodService')
 const https = require('https')
 
 module.exports = class UpodiApi {
@@ -18,32 +19,41 @@ module.exports = class UpodiApi {
 
   setupServices() {
     this.customers = new CustomerService(this)
+    this.paymentmethods = new PaymentMethodService(this)
   }
 
   async post(path, body) {
-    this.send(path, 'POST', body)
+    return this.send(path, 'POST', null, body)
   }
 
-  async send(path, method = 'GET', body = undefined) {
-    const bearer = Buffer.from(this.__apiKey).toString('base64')
-    var options = {
-      host: 'api.upodi.io',
-      path: '/v3/' + path,
-      method: method,
-      headers: {
-        accept: 'application/json; charset=utf-8',
-        'content-type': 'application/json',
-        Authorization: `bearer ${bearer}`
-      },
-      body: body
-    };
-    console.log(path)
-    return new Promise((resolve, reject) => {
+  async get(path, query) {
+    return this.send(path, 'GET', query, null)
+  }
 
-      https.get(options, (resp) => {
-        console.log(resp.statusMessage)
-        /// crap here
-        if (resp.statusCode == 401) {
+  async send(path, method = 'GET', query = {}, body = undefined) {
+
+    return new Promise((resolve, reject) => {
+      const bearer = Buffer.from(this.__apiKey).toString('base64')
+      var options = {
+        host: 'api.upodi.io',
+        path: '/v3/' + path,
+        method: method,
+        headers: {
+          accept: 'application/json; charset=utf-8',
+          'content-type': 'application/json',
+          Authorization: `bearer ${bearer}`
+        }
+      };
+
+      if (options.method === 'POST') {
+        options.body = JSON.stringify(body)
+       // options.headers['Content-Length'] = options.body.length
+      }
+
+      const req = https.request(options, resp => {
+        const status = resp.statusCode
+
+        if (status == 401) {
           return reject('access denied')
         }
 
@@ -55,17 +65,32 @@ module.exports = class UpodiApi {
 
         resp.on('end', () => {
           try {
-            data = JSON.parse(data)
+            var json = JSON.parse(data)
+            data = {}
+            for (var key in json) {
+              data[key.toLowerCase()] = json[key]
+            }
           } catch (ex) {
             return reject('Error parsing result')
           }
+
+          if (status>300) {
+            return reject(data)
+          }
+
           return resolve(data)
         })
 
       }).on("error", (err) => {
         reject(err)
       })
-    })
 
+      req.on('error', (e) => {
+        reject(e)
+      })
+
+      req.end(options.body)
+
+    })
   }
 }
