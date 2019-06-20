@@ -20,6 +20,6 @@
   "bugs": {
     "url": "https://github.com/truelinked/upodi-js/issues"
   },
-  "homepage": "https://github.com/truelinked/upodi-js#readme"
+  "homepage": "https://github.com/truelinked/upodi-js#readme",
+  "dependencies": {}
 }
-

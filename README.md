@@ -20,14 +20,15 @@ npm install upodi
 const UpodiApi = require('upodi')
 
 const upodi = new UpodiApi('${api key}')
-const listOfCustomer = await upodi.customers.list()
+const listOfCustomer = await upodi.customers.list({pagesize: '000, pagenumber: 1})
 ```
 
 ### 10 line sign up
 10 lines and you have signed up a customer, assigned a plan and started a subscription. This example uses Stripe.
 ```
-// setup service
-UpodiService upodi = new UpodiService("enter key here");
+const UpodiApi = require('upodi')
+
+const upodi = new UpodiApi('${api key}')
 
 Guid newCustomerId = upodi.Customers.Create("70225683", "Upodi ApS", "DKK");
 Guid productPlanId = Guid.Parse("- enter Guid of product plan here - "); // guid id of the product plan
