@@ -20,23 +20,28 @@ module.exports = class UpodiApi {
     this.customers = new CustomerService(this)
   }
 
-  async get(path) {
-    const bearer = Buffer.from(this.__apiKey).toString('base64')
+  async post(path, body) {
+    this.send(path, 'POST', body)
+  }
 
+  async send(path, method = 'GET', body = undefined) {
+    const bearer = Buffer.from(this.__apiKey).toString('base64')
     var options = {
       host: 'api.upodi.io',
-      path: '/v3' + path,
-      method: 'GET',
+      path: '/v3/' + path,
+      method: method,
       headers: {
-        accept: 'application/json',
+        accept: 'application/json; charset=utf-8',
+        'content-type': 'application/json',
         Authorization: `bearer ${bearer}`
-      }
+      },
+      body: body
     };
-
+    console.log(path)
     return new Promise((resolve, reject) => {
 
       https.get(options, (resp) => {
-
+        console.log(resp.statusMessage)
         /// crap here
         if (resp.statusCode == 401) {
           return reject('access denied')

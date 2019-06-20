@@ -7,6 +7,12 @@ module.exports = class CustomerService {
 
   async list() {
     // TODO : handle arguments
-    return await this.api.get('/customers/query')
+    return await this.api.send('customers/query')
+  }
+  async post() {
+
+    const body = {fullname:"emil georgi",autobill:true}
+
+    return await this.api.post('customers', body)
   }
 }
