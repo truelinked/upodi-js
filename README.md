@@ -17,7 +17,7 @@ npm install upodi
 
 ### Initialization
 ```
-const UpodiApi = require('../src/')
+const UpodiApi = require('upodi')
 
 const upodi = new UpodiApi('${api key}')
 const listOfCustomer = await upodi.customers.list()
