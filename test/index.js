@@ -1,7 +1,7 @@
 var UpodiApi = require('../src/')
-
+require('dotenv').config()
 async function test() {
-  var upodi = new UpodiApi('0d4eeb99-69b2-4dd7-abcb-445e164efaba')
+  var upodi = new UpodiApi(process.env.UpodiApiKey)
   try {
     var listOfCustomer = await upodi.customers.list()
     console.log(listOfCustomer)
@@ -11,7 +11,7 @@ async function test() {
 }
 
 async function testCreateCustomer(){
-  var upodi = new UpodiApi('0d4eeb99-69b2-4dd7-abcb-445e164efaba')
+  var upodi = new UpodiApi(process.env.UpodiApiKey)
   try {
     var customer = await upodi.customers.create({fullname: "test georgi"})
     console.log(customer)
@@ -20,7 +20,7 @@ async function testCreateCustomer(){
   }
 }
 async function testCreateCustomerFailsIfNoFullname(){
-  var upodi = new UpodiApi('0d4eeb99-69b2-4dd7-abcb-445e164efaba')
+  var upodi = new UpodiApi(process.env.UpodiApiKey)
   try {
     var customer = await upodi.customers.create({})
     console.log(customer)
@@ -30,7 +30,7 @@ async function testCreateCustomerFailsIfNoFullname(){
 }
 async function testSignip() {
   try {
-    var upodi = new UpodiApi('0d4eeb99-69b2-4dd7-abcb-445e164efaba')
+    var upodi = new UpodiApi(process.env.UpodiApiKey)
 
     var customer = await upodi.customers.create('UX-peter-' + Math.round(Math.random()*10000), 'hmm du er mærkelig', 'DKK')
 
@@ -40,7 +40,7 @@ async function testSignip() {
       type: 64,
       makedefault: true,
       puretoken: {
-        "token" : "cus_C9VhJ6qk0qkKqI", /* Stripe customer ID */
+        "token" : process.env.stripeToken, /* Stripe customer ID */
         "paymentgateway" : "stripe"
       }
     })

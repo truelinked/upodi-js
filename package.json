@@ -21,5 +21,7 @@
     "url": "https://github.com/truelinked/upodi-js/issues"
   },
   "homepage": "https://github.com/truelinked/upodi-js#readme",
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^8.0.0"
+  }
 }
