@@ -9,6 +9,25 @@ async function test() {
     console.error(ex)
   }
 }
+
+async function testCreateCustomer(){
+  var upodi = new UpodiApi('0d4eeb99-69b2-4dd7-abcb-445e164efaba')
+  try {
+    var customer = await upodi.customers.create({fullname: "test georgi"})
+    console.log(customer)
+  } catch (ex) {
+    console.error(ex)
+  }
+}
+async function testCreateCustomerFailsIfNoFullname(){
+  var upodi = new UpodiApi('0d4eeb99-69b2-4dd7-abcb-445e164efaba')
+  try {
+    var customer = await upodi.customers.create({})
+    console.log(customer)
+  } catch (ex) {
+    console.error(ex)
+  }
+}
 async function testSignip() {
   try {
     var upodi = new UpodiApi('0d4eeb99-69b2-4dd7-abcb-445e164efaba')
@@ -33,8 +52,9 @@ async function testSignip() {
 console.log('stupid test')
 
 // test()
-
-testSignip()
+// testCreateCustomer()
+testCreateCustomerFailsIfNoFullname()
+// testSignip()
 
 
 const fs = require('fs')

@@ -36,8 +36,9 @@ module.exports = class UpodiApi {
       const bearer = Buffer.from(this.__apiKey).toString('base64')
       var options = {
         host: 'api.upodi.io',
-        path: `/v3/${path}?${query}`,
+        path: `/v3/${path}`,
         method: method,
+        qs: JSON.stringify(query),
         headers: {
           accept: 'application/json; charset=utf-8',
           'content-type': 'application/json',
