@@ -30,13 +30,13 @@ module.exports = class UpodiApi {
     return this.send(path, 'GET', query, null)
   }
 
-  async send(path, method = 'GET', query = {}, body = undefined) {
+  async send(path, method = 'GET', query = {}, body = {}) {
 
     return new Promise((resolve, reject) => {
       const bearer = Buffer.from(this.__apiKey).toString('base64')
       var options = {
         host: 'api.upodi.io',
-        path: '/v3/' + path,
+        path: `/v3/${path}?${query}`,
         method: method,
         headers: {
           accept: 'application/json; charset=utf-8',
