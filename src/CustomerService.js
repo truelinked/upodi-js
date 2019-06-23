@@ -6,6 +6,7 @@ module.exports = class CustomerService {
   }
 
   async list(opt) {
+    
     opt = opt || {}
     opt.pagesize = opt.pagesize || 100
     opt.pagenumber = opt.pagenumber || 1
