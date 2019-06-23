@@ -1,6 +1,6 @@
 {
   "name": "upodi",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Unofficial library for consuming the upodi.com API",
   "main": "src/index.js",
   "scripts": {
@@ -20,6 +20,8 @@
   "bugs": {
     "url": "https://github.com/truelinked/upodi-js/issues"
   },
-  "homepage": "https://github.com/truelinked/upodi-js#readme"
+  "homepage": "https://github.com/truelinked/upodi-js#readme",
+  "dependencies": {
+    "dotenv": "^8.0.0"
+  }
 }
-
