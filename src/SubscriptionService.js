@@ -11,7 +11,7 @@ module.exports = class Subscription {
     opt.pagesize = opt.pagesize || 100
     opt.pagenumber = opt.pagenumber || 1
 
-    return await this.api.get('customers', opt)
+    return await this.api.get('subscriptions', opt)
   }
 
 
@@ -22,33 +22,32 @@ module.exports = class Subscription {
     }
 
     if (arguments.length === 1 && typeof arguments[0] === 'object') {
-      return (await this.createFullCustomer(arguments[0]))
+      return (await this.createFullSubscription(arguments[0]))
     }
 
     throw new Error('Invalid parameters for creating customer')
 
   }
 
-  async createStandard(accountnumber, fullname, currencycode) {
+  async createStandard(customerid, productplanid) {
 
-    return (await this.createFullCustomer({
-      accountnumber,
-      fullname,
-      currencycode,
-      autobill: true
+    return (await this.createFullSubscription({
+      customerid,
+      productplanid,
+      autorenew: true
     }))
 
   }
 
-  async createFullCustomer(customer) {
+  async createFullSubscription(subscription) {
 
-    customer.autobill = true
-
-    if (!customer.fullname) {
-      throw new Error('Missing customer name')
+    if (!subscription.customerid) {
+      throw new Error('Missing customerid')
     }
-
-    return (await this.api.post('customers', customer))
+    if(!subscription.productplanid){
+      throw new Error('Missing productplanid')
+    }
+    return (await this.api.post('subscriptions', subscription))
 
   }
 }

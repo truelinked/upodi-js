@@ -3,6 +3,8 @@
 const ApiError = require('./UpodiApiError')
 const CustomerService = require('./CustomerService')
 const PaymentMethodService = require('./PaymentMethodService')
+const SubscriptionService = require('./SubscriptionService')
+
 const https = require('https')
 
 module.exports = class UpodiApi {
@@ -20,6 +22,8 @@ module.exports = class UpodiApi {
   setupServices() {
     this.customers = new CustomerService(this)
     this.paymentmethods = new PaymentMethodService(this)
+    this.subscription = new SubscriptionService(this)
+
   }
 
   async post(path, body) {
@@ -45,7 +49,6 @@ module.exports = class UpodiApi {
           Authorization: `bearer ${bearer}`
         }
       };
-
       if (options.method === 'POST') {
         options.body = JSON.stringify(body)
        // options.headers['Content-Length'] = options.body.length

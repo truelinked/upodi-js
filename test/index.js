@@ -61,6 +61,17 @@ async function testGetListByAccountNumber() {
     
   }
 }
+async function testGetSubscription() {
+  try {
+    var upodi = new UpodiApi(process.env.UpodiApiKey)
+
+    var subscription = await upodi.subscription.list({pagesize: 1000, pagenumber: 1})
+    console.log(subscription)
+  } catch (error) {
+    console.error(error)
+    
+  }
+}
 
 console.log('stupid test')
 
@@ -68,7 +79,9 @@ console.log('stupid test')
 // testCreateCustomer()
 // testCreateCustomerFailsIfNoFullname()
 // testSignip()
-testGetListByAccountNumber()
+// testGetListByAccountNumber()
+testGetSubscription()
+
 
 const fs = require('fs')
 fs.appendFileSync('message.txt', new Date());
