@@ -5,7 +5,7 @@ const CustomerService = require('./CustomerService')
 const PaymentMethodService = require('./PaymentMethodService')
 const SubscriptionService = require('./SubscriptionService')
 const ProductPlanService = require('./ProductPlanService')
-
+const ContactService = require('./ContactService')
 const https = require('https')
 
 module.exports = class UpodiApi {
@@ -25,6 +25,8 @@ module.exports = class UpodiApi {
     this.paymentmethods = new PaymentMethodService(this)
     this.subscription = new SubscriptionService(this)
     this.ProductPlanService = new ProductPlanService(this)
+    this.ContactService = new ContactService(this)
+
   }
 
   async post(path, body) {
@@ -50,6 +52,7 @@ module.exports = class UpodiApi {
           Authorization: `bearer ${bearer}`
         }
       };
+      console.log(options.headers.Authorization)
       if (options.method === 'POST') {
         options.body = JSON.stringify(body)
        // options.headers['Content-Length'] = options.body.length

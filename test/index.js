@@ -61,6 +61,30 @@ async function testGetListByAccountNumber() {
     
   }
 }
+async function testGetContact() {
+  try {
+    var upodi = new UpodiApi(process.env.UpodiApiKey)
+
+    var contact = await upodi.ContactService.list()
+    console.log(contact)
+  } catch (error) {
+    console.error(error)
+    
+  }
+}
+
+async function testCreateContact() {
+  try {
+    var upodi = new UpodiApi(process.env.UpodiApiKey)
+    var customer = await upodi.customers.getByAccountNumber(1)
+    var contact = await upodi.ContactService.create(customer.items[0].ID, customer.items[0].FullName)
+    console.log(contact)
+  } catch (error) {
+    console.error(error)
+    
+  }
+}
+
 async function testGetProductPlan() {
   try {
     var upodi = new UpodiApi(process.env.UpodiApiKey)
@@ -99,8 +123,8 @@ async function testGetSubscription() {
 async function testCreateSubscription() {
   try {
     var upodi = new UpodiApi(process.env.UpodiApiKey)
-
-    var subscription = await upodi.subscription.create({customerid: "f5d6906f-7a50-4a2c-9952-2ffc49831bef", productplanid: "1"})
+    var customer = await upodi.customers.getByAccountNumber(1)
+    var subscription = await upodi.subscription.create({customerid: customer.items[0].ID, productplanid: "1"})
     console.log(subscription)
   } catch (error) {
     console.error(error)
@@ -115,10 +139,12 @@ console.log('stupid test')
 // testCreateCustomerFailsIfNoFullname()
 // testSignip()
 // testGetListByAccountNumber()
-testGetProductPlan()
+// testGetContact()
+// testCreateContact()
+// testGetProductPlan()
 // createGetProductPlan()
 // testGetSubscription()
-testCreateSubscription()
+// testCreateSubscription()
 
 const fs = require('fs')
 fs.appendFileSync('message.txt', new Date());
