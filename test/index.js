@@ -108,7 +108,28 @@ async function createGetProductPlan() {
     
   }
 }
+async function testGetInvoice() {
+  try {
+    var upodi = new UpodiApi(process.env.UpodiApiKey)
 
+    var subscription = await upodi.InvoiceService.list({pagesize: 1000, pagenumber: 1})
+    console.log(subscription)
+  } catch (error) {
+    console.error(error)
+    
+  }
+}
+async function testCreateInvoice() {
+  try {
+    var upodi = new UpodiApi(process.env.UpodiApiKey)
+    var customer = await upodi.customers.getByAccountNumber(1)
+    var subscription = await upodi.InvoiceService.create({customerid: customer.items[0].ID, currencycode: 'DKK', paymentterm: 30})
+    console.log(subscription)
+  } catch (error) {
+    console.error(error)
+    
+  }
+}
 async function testGetSubscription() {
   try {
     var upodi = new UpodiApi(process.env.UpodiApiKey)
@@ -143,6 +164,8 @@ console.log('stupid test')
 // testCreateContact()
 // testGetProductPlan()
 // createGetProductPlan()
+// testGetInvoice()
+testCreateInvoice()
 // testGetSubscription()
 // testCreateSubscription()
 

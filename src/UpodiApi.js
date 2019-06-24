@@ -6,6 +6,7 @@ const PaymentMethodService = require('./PaymentMethodService')
 const SubscriptionService = require('./SubscriptionService')
 const ProductPlanService = require('./ProductPlanService')
 const ContactService = require('./ContactService')
+const InvoiceService = require('./InvoiceService')
 const https = require('https')
 
 module.exports = class UpodiApi {
@@ -26,7 +27,7 @@ module.exports = class UpodiApi {
     this.subscription = new SubscriptionService(this)
     this.ProductPlanService = new ProductPlanService(this)
     this.ContactService = new ContactService(this)
-
+    this.InvoiceService = new InvoiceService(this)
   }
 
   async post(path, body) {
