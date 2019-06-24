@@ -1,6 +1,6 @@
 `use strict`;
 
-module.exports = class CustomerService {
+module.exports = class Subscription {
   constructor(apiReference) {
     this.api = apiReference
   }
@@ -13,6 +13,7 @@ module.exports = class CustomerService {
 
     return await this.api.get('customers', opt)
   }
+
 
   async create() {
 
@@ -27,14 +28,6 @@ module.exports = class CustomerService {
     throw new Error('Invalid parameters for creating customer')
 
   }
-
-  async getByAccountNumber(accNumber) {
-    if(accNumber){
-        const accJson = {accountNumber: accNumber}
-        return await this.api.get('customers', accJson)
-        }
-        throw new Error('Invalid account number')
-    }
 
   async createStandard(accountnumber, fullname, currencycode) {
 

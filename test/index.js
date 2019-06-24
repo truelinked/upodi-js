@@ -40,7 +40,7 @@ async function testSignip() {
       type: 64,
       makedefault: true,
       puretoken: {
-        "token" : process.env.stripeToken, /* Stripe customer ID */
+        "token" : process.env.stripeToken , /* Stripe customer ID */
         "paymentgateway" : "stripe"
       }
     })
@@ -49,13 +49,26 @@ async function testSignip() {
     console.error(ex)
   }
 }
+
+async function testGetListByAccountNumber() {
+  try {
+    var upodi = new UpodiApi(process.env.UpodiApiKey)
+
+    var customer = await upodi.customers.getByAccountNumber(1)
+    console.log(customer)
+  } catch (error) {
+    console.error(error)
+    
+  }
+}
+
 console.log('stupid test')
 
 // test()
 // testCreateCustomer()
-testCreateCustomerFailsIfNoFullname()
+// testCreateCustomerFailsIfNoFullname()
 // testSignip()
-
+testGetListByAccountNumber()
 
 const fs = require('fs')
 fs.appendFileSync('message.txt', new Date());
