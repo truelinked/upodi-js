@@ -17,8 +17,8 @@ module.exports = class Subscription {
 
   async create() {
 
-    if (arguments.length === 3) {
-      return (await this.createStandard(arguments[0], arguments[1], arguments[2]))
+    if (arguments.length === 2) {
+      return (await this.createStandard(arguments[0], arguments[1]))
     }
 
     if (arguments.length === 1 && typeof arguments[0] === 'object') {
@@ -32,15 +32,21 @@ module.exports = class Subscription {
   async createStandard(customerid, productplanid) {
 
     return (await this.createFullSubscription({
-      customerid,
-      productplanid,
-      autorenew: true
+      customerid:customerid,
+      productplanid:productplanid,
+      autorenew:true,
+      initialterminterval:12,
+      initialtermperiod:300,
+      initialterm:"12 months",
+      renewalterminterval:12,
+      renewaltermperiod:300,
+      renewalterm:"12 months"
     }))
 
   }
 
   async createFullSubscription(subscription) {
-
+    subscription.autorenew = true
     if (!subscription.customerid) {
       throw new Error('Missing customerid')
     }

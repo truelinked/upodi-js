@@ -4,6 +4,7 @@ const ApiError = require('./UpodiApiError')
 const CustomerService = require('./CustomerService')
 const PaymentMethodService = require('./PaymentMethodService')
 const SubscriptionService = require('./SubscriptionService')
+const ProductPlanService = require('./ProductPlanService')
 
 const https = require('https')
 
@@ -23,7 +24,7 @@ module.exports = class UpodiApi {
     this.customers = new CustomerService(this)
     this.paymentmethods = new PaymentMethodService(this)
     this.subscription = new SubscriptionService(this)
-
+    this.ProductPlanService = new ProductPlanService(this)
   }
 
   async post(path, body) {
