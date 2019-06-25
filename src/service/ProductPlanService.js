@@ -1,6 +1,6 @@
 `use strict`;
 
-module.exports = class Productplan {
+module.exports = class ProductplanService {
   constructor(apiReference) {
     this.api = apiReference
   }

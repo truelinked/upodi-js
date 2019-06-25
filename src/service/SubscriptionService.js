@@ -1,6 +1,6 @@
 `use strict`;
 
-module.exports = class Subscription {
+module.exports = class SubscriptionService {
   constructor(apiReference) {
     this.api = apiReference
   }
@@ -25,7 +25,7 @@ module.exports = class Subscription {
       return (await this.createFullSubscription(arguments[0]))
     }
 
-    throw new Error('Invalid parameters for creating customer')
+    throw new Error('Invalid parameters for creating subscriptions')
 
   }
 
@@ -46,6 +46,7 @@ module.exports = class Subscription {
   }
 
   async createFullSubscription(subscription) {
+
     subscription.autorenew = true
     if (!subscription.customerid) {
       throw new Error('Missing customerid')
@@ -56,4 +57,12 @@ module.exports = class Subscription {
     return (await this.api.post('subscriptions', subscription))
 
   }
+
+  async activateSubcription(subscriptionId) {
+    if(!subscriptionId) {
+      return (await this.api.put(`subscriptions/${subscriptionId}/activate`))
+    }
+    throw new Error('missiong subscriptionId')
+  }
+
 }

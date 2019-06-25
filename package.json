@@ -4,7 +4,7 @@
   "description": "Unofficial library for consuming the upodi.com API",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/truelinked/upodi-js#readme",
   "dependencies": {
+    "chai": "^4.2.0",
     "dotenv": "^8.0.0"
   }
 }

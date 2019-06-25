@@ -1,12 +1,7 @@
 `use strict`;
 
 const ApiError = require('./UpodiApiError')
-const CustomerService = require('./CustomerService')
-const PaymentMethodService = require('./PaymentMethodService')
-const SubscriptionService = require('./SubscriptionService')
-const ProductPlanService = require('./ProductPlanService')
-const ContactService = require('./ContactService')
-const InvoiceService = require('./InvoiceService')
+const services = require('./service')
 const https = require('https')
 
 module.exports = class UpodiApi {
@@ -15,21 +10,22 @@ module.exports = class UpodiApi {
     if (!apiKey) {
       throw new ApiError('Missing Api Key for Upodi')
     }
-
     this.__apiKey = apiKey
-
     this.setupServices()
   }
 
   setupServices() {
-    this.customers = new CustomerService(this)
-    this.paymentmethods = new PaymentMethodService(this)
-    this.subscription = new SubscriptionService(this)
-    this.ProductPlanService = new ProductPlanService(this)
-    this.ContactService = new ContactService(this)
-    this.InvoiceService = new InvoiceService(this)
+    for (const key in services) {
+      if (services.hasOwnProperty(key)) {
+        const element = new this.service[key](this);
+        this[element.constructor.name] = element
+      }
+    }
   }
-
+  
+  async put(path, query = null, body = null){
+    return this.send(path, 'PUT', query, body)
+  }
   async post(path, body) {
     return this.send(path, 'POST', null, body)
   }
@@ -53,7 +49,6 @@ module.exports = class UpodiApi {
           Authorization: `bearer ${bearer}`
         }
       };
-      console.log(options.headers.Authorization)
       if (options.method === 'POST') {
         options.body = JSON.stringify(body)
        // options.headers['Content-Length'] = options.body.length
