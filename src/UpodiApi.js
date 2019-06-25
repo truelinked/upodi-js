@@ -4,6 +4,9 @@ const ApiError = require('./UpodiApiError')
 const services = require('./service')
 const https = require('https')
 
+const UPODI_API_SERVER = 'api.upodi.io'
+const UPODI_API_VERSION = 'v3'
+
 module.exports = class UpodiApi {
 
   constructor(apiKey = null) {
@@ -34,31 +37,28 @@ module.exports = class UpodiApi {
     return this.send(path, 'GET', query, null)
   }
 
-  async send(path, method = 'GET', query = {}, body = {}) {
+  async send(path, method = 'GET', query = {}, body = null) {
 
     return new Promise((resolve, reject) => {
       const bearer = Buffer.from(this.__apiKey).toString('base64')
       var options = {
-        host: 'api.upodi.io',
-        path: `/v3/${path}`,
+        host: UPODI_API_SERVER,
+        path: `/${UPODI_API_VERSION}/${path}`,
         method: method,
         qs: JSON.stringify(query),
+        body: JSON.stringify(body),
         headers: {
           accept: 'application/json; charset=utf-8',
           'content-type': 'application/json',
           Authorization: `bearer ${bearer}`
         }
-      };
-      if (options.method === 'POST') {
-        options.body = JSON.stringify(body)
-       // options.headers['Content-Length'] = options.body.length
       }
 
       const req = https.request(options, resp => {
         const status = resp.statusCode
 
         if (status == 401) {
-          return reject('access denied')
+          return reject(new 'access denied')
         }
 
         let data = '';
@@ -75,22 +75,22 @@ module.exports = class UpodiApi {
               data[key.toLowerCase()] = json[key]
             }
           } catch (ex) {
-            return reject('Error parsing result')
+            return reject(new ApiError('Error parsing result', ex))
           }
 
           if (status>300) {
-            return reject(data)
+            return reject(new ApiError(data))
           }
 
           return resolve(data)
         })
 
       }).on("error", (err) => {
-        reject(err)
+        reject(new ApiError(err.message, err))
       })
 
       req.on('error', (e) => {
-        reject(e)
+        reject(new ApiError(e.message, e))
       })
 
       req.end(options.body)

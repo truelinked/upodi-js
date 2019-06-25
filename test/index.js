@@ -8,6 +8,7 @@ describe('Get services', function() {
     it('Get customer', async function() {
       expect(upodi.customer.list).to.not.throw()
     })
+
     it('Get customer by account number', async function() {
       expect(async () => await upodi.customer.getByAccountNumber(1)).to.not.throw()
     })

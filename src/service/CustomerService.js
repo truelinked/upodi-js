@@ -26,7 +26,7 @@ module.exports = class CustomerService {
       return (await this.createFullCustomer(arguments[0]))
     }
 
-    throw new Error('Invalid parameters for creating customer')
+    throw new TypeError('Invalid parameters for creating customer')
 
   }
 
