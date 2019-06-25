@@ -85,7 +85,3 @@ describe('PUT Services', function() {
     })
   })
 })
-console.log('stupid test')
-const fs = require('fs')
-fs.appendFileSync('message.txt', new Date());
-fs.appendFileSync('message.txt', '\n');
