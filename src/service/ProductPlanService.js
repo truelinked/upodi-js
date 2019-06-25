@@ -3,6 +3,8 @@
 module.exports = class ProductplanService {
   constructor(apiReference) {
     this.api = apiReference
+    this.name = 'productPlan'
+
   }
 
   async list(opt) {

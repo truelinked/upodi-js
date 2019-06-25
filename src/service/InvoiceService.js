@@ -3,6 +3,8 @@
 module.exports = class InvoiceService {
   constructor(apiReference) {
     this.api = apiReference
+    this.name = 'invoice'
+
   }
 
   async list(opt) {

@@ -17,12 +17,12 @@ module.exports = class UpodiApi {
   setupServices() {
     for (const key in services) {
       if (services.hasOwnProperty(key)) {
-        const element = new this.service[key](this);
-        this[element.constructor.name] = element
+        const element = new services[key](this);
+        this[element.name] = element
       }
     }
   }
-  
+
   async put(path, query = null, body = null){
     return this.send(path, 'PUT', query, body)
   }

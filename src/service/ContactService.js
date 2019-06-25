@@ -1,8 +1,10 @@
 `use strict`;
 
 module.exports = class ContactService {
+
   constructor(apiReference) {
     this.api = apiReference
+    this.name = 'contacts'
   }
 
   async list(opt) {

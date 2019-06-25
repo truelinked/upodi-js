@@ -3,6 +3,7 @@
 module.exports = class SubscriptionService {
   constructor(apiReference) {
     this.api = apiReference
+    this.name = 'subscriptions'
   }
 
   async list(opt) {

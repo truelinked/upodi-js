@@ -3,6 +3,8 @@
 module.exports = class PaymentMethodService {
   constructor(apiReference) {
     this.api = apiReference
+    this.name = 'paymentMethod'
+
   }
 
   async list(customerId, opt) {
