@@ -65,3 +65,7 @@ typings/
 
 #generated file from testing
 message.txt
+
+#internal testing
+test/
+test/index.js
