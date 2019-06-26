@@ -13,7 +13,7 @@ describe('Get services', function() {
       expect(async () => await upodi.customer.getByAccountNumber(1)).to.not.throw()
     })
   })
-  describe('subcription', function() {
+  describe('subcription', function() { 
     it('Get subcription', async function() {
         expect(upodi.subscriptions.list).to.not.throw()
     })
