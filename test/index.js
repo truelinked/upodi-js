@@ -1,4 +1,4 @@
-var UpodiApi = require('upodi')
+var UpodiApi = require('../src')
 require('dotenv').config()
 const expect = require('chai').expect
 const upodi = new UpodiApi(process.env.UpodiApiKey)

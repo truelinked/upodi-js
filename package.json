@@ -22,5 +22,8 @@
   },
   "homepage": "https://github.com/truelinked/upodi-js#readme",
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "dotenv": "^8.0.0"
+  }
 }
