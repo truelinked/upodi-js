@@ -1,10 +1,10 @@
 {
   "name": "upodi",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Unofficial library for consuming the upodi.com API",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,6 @@
     "url": "https://github.com/truelinked/upodi-js/issues"
   },
   "homepage": "https://github.com/truelinked/upodi-js#readme",
-  "dependencies": {
-    "dotenv": "^8.0.0"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
