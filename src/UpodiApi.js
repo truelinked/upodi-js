@@ -112,9 +112,9 @@ module.exports = class UpodiApi {
     if(!body.Issuer.Identifier) {
       throw new ApiError("Identifier is not found in webhook body", body)
     }
-    if(body.Signature !== this.__apiKey) {
-      throw new ApiError("not authorerized")
-    }
+    // if(body.Signature !== this.__apiKey) {
+    //   throw new ApiError("not authorerized")
+    // }
     return {
       action: body.Action,
       identifier: body.Issuer.Identifier,
