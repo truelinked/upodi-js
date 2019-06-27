@@ -67,5 +67,4 @@ typings/
 message.txt
 
 #internal testing
-test/
 test/index.js

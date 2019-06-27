@@ -30,8 +30,7 @@ const UpodiApi = require('upodi')
 
 const upodi = new UpodiApi('${api key}')
 
-Guid newCustomerId = upodi.Customers.Create("70225683", "Upodi ApS", "DKK");
-Guid productPlanId = Guid.Parse("- enter Guid of product plan here - "); // guid id of the product plan
+var newCustomerId = upodi.Customers.Create("70225683", "Upodi ApS", "DKK");
 
 upodi.SignUp.SignUp(new SignUpRequest {
       Customer = new Customer { ID = newCustomerId },
@@ -47,12 +46,6 @@ List all customers. Options to limited list all or paged results. See limited li
 var customers = upodi.Customers.List(all: true);
 ```
 
-Get a customer. If not found, null is returned.
-```
-var customer = upodi.Customers.Get(Guid.Parse("{guid of customer}"));
-if (customer != null)
-  ...
-```
 
 Create a new customer. Requires accountnumber, fullname and currencycode.
 ```

@@ -94,7 +94,33 @@ module.exports = class UpodiApi {
       })
 
       req.end(options.body)
-
     })
+  }
+  parseWebhook(body) {
+    if(!body) {
+      throw new ApiError("body can't be null")
+    }
+    if(!body.Action) {
+      throw new ApiError("action is not found in webhook body", body) 
+    }
+    if(!body.Type) {
+      throw new ApiError("type is not found in webhook body", body)
+    }
+    if(!body.Issuer) {
+      throw new ApiError("issue is not found in webhook body", body)
+    }
+    if(!body.Issuer.Identifier) {
+      throw new ApiError("Identifier is not found in webhook body", body)
+    }
+    // if(body.Signature !== this.__apiKey) {
+    //   throw new ApiError("not authorerized")
+    // }
+    return {
+      action: body.Action,
+      identifier: body.Issuer.Identifier,
+      type: body.Type,
+      signature: body.Signature,
+      body
+    }
   }
 }
