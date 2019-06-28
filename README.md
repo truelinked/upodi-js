@@ -65,16 +65,11 @@ var newId = upodi.Subscriptions.Create(customerId, productPlanId, DateTime.UtcNo
 
 Subscriptions enable various actions.
 ```
-var result = upodi.Subscriptions.Activate(subscriptionId);
-var result = upodi.Subscriptions.Cancel(subscriptionId);
-var result = upodi.Subscriptions.Expire(subscriptionId);
-var result = upodi.Subscriptions.Hold(subscriptionId);
-var result = upodi.Subscriptions.Resume(subscriptionId);
-```
-
-List active charges (parameter true).
-```
-var charges = upodi.Subscriptions.ListCharges(subscriptionId, true);
+var result = upodi.Subscriptions.activateSubcription(subscriptionId);
+var result = upodi.Subscriptions.cancelSubcription(subscriptionId);
+var result = upodi.Subscriptions.expireSubcription(subscriptionId);
+var result = upodi.Subscriptions.holdSubcription(subscriptionId);
+var result = upodi.Subscriptions.resumeSubcription(subscriptionId);
 ```
 
 Update amount of a subscription charge.
