@@ -38,6 +38,14 @@ module.exports = class CustomerService {
     return await this.api.get(`customers/byaccountnumber/${accNumber}`, {}) 
   }
 
+  async getPaymentMethods(customerId) {
+    if (!customerId) {
+      throw new Error('Invalid customerId')
+    }
+    
+    return await this.api.get(`customers/${customerId}/paymentmethods`, {}) 
+  }
+
   async createStandard(accountnumber, fullname, currencycode) {
 
     return (await this.createFullCustomer({
