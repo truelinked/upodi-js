@@ -62,6 +62,7 @@ typings/
 
 #vs
 .vs
+.vscode
 
 #generated file from testing
 message.txt

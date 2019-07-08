@@ -6,11 +6,11 @@ const upodi = new UpodiApi(process.env.UpodiApiKey)
 describe('Get services', function() {
   describe('Customer', function() {
     it('Get customer', async function() {
-      expect(upodi.customer.list).to.not.throw()
+      expect(upodi.customers.list).to.not.throw()
     })
 
     it('Get customer by account number', async function() {
-      expect(async () => await upodi.customer.getByAccountNumber(1)).to.not.throw()
+      expect(async () => await upodi.customers.getByAccountNumber(1)).to.not.throw()
     })
   })
   describe('subcription', function() { 
@@ -20,12 +20,12 @@ describe('Get services', function() {
   })
   describe('Invoice', function() {
     it('Get Invoice', async function() {
-      expect(upodi.invoice.list).to.not.throw()
+      expect(upodi.invoices.list).to.not.throw()
     })
   })
   describe('ProductPlan', function() {
     it('Get ProductPlan', async function() {
-      expect(upodi.productPlan.list).to.not.throw()
+      expect(upodi.productPlans.list).to.not.throw()
     })
   })
   describe('Contact', function() {
@@ -38,14 +38,14 @@ describe('Get services', function() {
 describe('Create services', function() {
   describe('Customer', function() {
     it('Create customer', async function() {
-      expect(async () => await upodi.customer.create({fullname: "test georgi"})).to.not.throw()
+      expect(async () => await upodi.customers.create({fullname: "test georgi"})).to.not.throw()
     })
   })
   describe('PaymentMethods', function() {
     it('Create paymentmethods', async function() {
-      var customer = await upodi.customer.create('UX-peter-' + Math.round(Math.random()*10000), 'hmm du er mærkelig', 'DKK')
+      var customer = await upodi.customers.create('UX-peter-' + Math.round(Math.random()*10000), 'hmm du er mærkelig', 'DKK')
       var newCustomerId = customer.id
-      expect(async () => await upodi.paymentMethod.create(newCustomerId, {
+      expect(async () => await upodi.paymentMethods.create(newCustomerId, {
           type: 64,
           makedefault: true,
           puretoken: {
@@ -58,21 +58,21 @@ describe('Create services', function() {
   })
   describe('Subcriptions', function() {
     it('Create subcription', async function() {
-      var customer = await upodi.customer.getByAccountNumber(1)
-      var productPlan = await upodi.productPlan.list();
+      var customer = await upodi.customers.getByAccountNumber(1)
+      var productPlan = await upodi.productPlans.list();
       expect(async () => await upodi.subscriptions.create({customerid: customer.items[0].ID, productplanid: productPlan.items[0].ID})).to.not.throw()
     })
   })
   describe('Invoices', function() {
     it('Create Invoice', async function() {
-      var customer = await upodi.customer.getByAccountNumber(1)
-      expect(async () => await upodi.invoice.create({customerid: customer.items[0].ID, currencycode: 'DKK', paymentterm: 30})).to.not.throw()
+      var customer = await upodi.customers.getByAccountNumber(1)
+      expect(async () => await upodi.invoices.create({customerid: customer.items[0].ID, currencycode: 'DKK', paymentterm: 30})).to.not.throw()
     })
   })
   describe('Contact', function() {
     it('Get contact', async function() {
-      var customer = await upodi.customer.getByAccountNumber(1)
-      expect(async () => await upodi.contact.create(customer.items[0].ID, customer.items[0].FullName)).to.not.throw()
+      var customer = await upodi.customers.getByAccountNumber(1)
+      expect(async () => await upodi.contacts.create(customer.items[0].ID, customer.items[0].FullName)).to.not.throw()
     })
   })
 })
