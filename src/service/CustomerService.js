@@ -8,7 +8,7 @@ module.exports = class CustomerService {
   }
 
   async list(opt) {
-    
+
     opt = opt || {}
     opt.pagesize = opt.pagesize || 100
     opt.pagenumber = opt.pagenumber || 1
@@ -31,12 +31,12 @@ module.exports = class CustomerService {
   }
 
   async getByAccountNumber(accNumber) {
-    if(accNumber){
-        const accJson = {accountNumber: accNumber}
-        return await this.api.get('customers', accJson)
-        }
-        throw new Error('Invalid account number')
+    if (!accNumber) {
+      throw new Error('Invalid account number')
     }
+    
+    return await this.api.get(`customers/byaccountnumber/${accNumber}`, {}) 
+  }
 
   async createStandard(accountnumber, fullname, currencycode) {
 
