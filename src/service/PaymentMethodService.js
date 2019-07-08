@@ -3,7 +3,7 @@
 module.exports = class PaymentMethodService {
   constructor(apiReference) {
     this.api = apiReference
-    this.name = 'paymentMethod'
+    this.name = 'paymentMethods'
 
   }
 
