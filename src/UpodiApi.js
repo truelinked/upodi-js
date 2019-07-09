@@ -57,8 +57,11 @@ module.exports = class UpodiApi {
       const req = https.request(options, resp => {
         const status = resp.statusCode
 
-        if (status == 401) {
-          return reject(new 'access denied')
+        switch (status) {
+          case 401:
+              return reject(new 'access denied')    
+          case 404:
+              return resolve(null)
         }
 
         let data = '';
