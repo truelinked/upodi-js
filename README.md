@@ -23,53 +23,37 @@ const upodi = new UpodiApi('${api key}')
 const listOfCustomer = await upodi.customers.list({pagesize: '000, pagenumber: 1})
 ```
 
-### 10 line sign up
-10 lines and you have signed up a customer, assigned a plan and started a subscription. This example uses Stripe.
-```
-const UpodiApi = require('upodi')
-
-const upodi = new UpodiApi('${api key}')
-
-var newCustomerId = upodi.Customers.Create("70225683", "Upodi ApS", "DKK");
-
-upodi.SignUp.SignUp(new SignUpRequest {
-      Customer = new Customer { ID = newCustomerId },
-      CardToken = new CardToken { PaymentGateway = "stripe", Token = "- enter strike customer token cus_XXX -" },
-      StartDate = DateTime.UtcNow,
-      ProductPlan = new ProductPlan {  ID = productPlanId }
-});
-```
 
 ### Working with Customers
 List all customers. Options to limited list all or paged results. See limited lists below.
 ```
-var customers = upodi.Customers.List(all: true);
+var customers = upodi.Customers.list(all: true);
 ```
 
 
 Create a new customer. Requires accountnumber, fullname and currencycode.
 ```
-var newId = upodi.Customers.Create("acocuntnumber", "fullname", "USD");
+var newId = upodi.Customers.create("acocuntnumber", "fullname", "USD");
 ```
 
 ### Working with Subscriptions
 List all subscriptions. Options to limited list all or paged results. See limited lists below.
 ```
-var subscriptions = upodi.Subscriptions.List(all: true);
+var subscriptions = upodi.Subscriptions.list(all: true);
 ```
 
 Create a new subscription. Requires the customer and product plan id.
 ```
-var newId = upodi.Subscriptions.Create(customerId, productPlanId, DateTime.UtcNow);
+var newId = upodi.Subscriptions.create(customerId, productPlanId, DateTime.UtcNow);
 ```
 
 Subscriptions enable various actions.
 ```
-var result = upodi.Subscriptions.activateSubcription(subscriptionId);
-var result = upodi.Subscriptions.cancelSubcription(subscriptionId);
-var result = upodi.Subscriptions.expireSubcription(subscriptionId);
-var result = upodi.Subscriptions.holdSubcription(subscriptionId);
-var result = upodi.Subscriptions.resumeSubcription(subscriptionId);
+var result = upodi.Subscriptions.activate(subscriptionId);
+var result = upodi.Subscriptions.cancel(subscriptionId);
+var result = upodi.Subscriptions.expire(subscriptionId);
+var result = upodi.Subscriptions.hold(subscriptionId);
+var result = upodi.Subscriptions.resume(subscriptionId);
 ```
 
 Update amount of a subscription charge.
