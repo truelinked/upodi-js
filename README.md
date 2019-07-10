@@ -27,13 +27,13 @@ const listOfCustomer = await upodi.customers.list({pagesize: '000, pagenumber: 1
 ### Working with Customers
 List all customers. Options to limited list all or paged results. See limited lists below.
 ```
-var customers = upodi.Customers.list(all: true);
+var customers = upodi.customers.list(all: true);
 ```
 
 
 Create a new customer. Requires accountnumber, fullname and currencycode.
 ```
-var newId = upodi.Customers.create("acocuntnumber", "fullname", "USD");
+var newId = upodi.customers.create("acocuntnumber", "fullname", "USD");
 ```
 
 ### Working with Subscriptions
@@ -44,16 +44,16 @@ var subscriptions = upodi.Subscriptions.list(all: true);
 
 Create a new subscription. Requires the customer and product plan id.
 ```
-var newId = upodi.Subscriptions.create(customerId, productPlanId, DateTime.UtcNow);
+var newId = upodi.subscriptions.create(customerId, productPlanId, DateTime.UtcNow);
 ```
 
 Subscriptions enable various actions.
 ```
-var result = upodi.Subscriptions.activate(subscriptionId);
-var result = upodi.Subscriptions.cancel(subscriptionId);
-var result = upodi.Subscriptions.expire(subscriptionId);
-var result = upodi.Subscriptions.hold(subscriptionId);
-var result = upodi.Subscriptions.resume(subscriptionId);
+var result = upodi.subscriptions.activate(subscriptionId);
+var result = upodi.subscriptions.cancel(subscriptionId);
+var result = upodi.subscriptions.expire(subscriptionId);
+var result = upodi.subscriptions.hold(subscriptionId);
+var result = upodi.subscriptions.resume(subscriptionId);
 ```
 
 Update amount of a subscription charge.

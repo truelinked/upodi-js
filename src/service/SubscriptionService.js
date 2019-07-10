@@ -59,31 +59,31 @@ module.exports = class SubscriptionService {
 
   }
 
-  async activateSubcription(subscriptionId) {
+  async activate(subscriptionId) {
     if(subscriptionId) {
       return (await this.api.put(`subscriptions/${subscriptionId}/activate`))
     }
     throw new Error('missing subscriptionId')
   }
-  async closeSubcription(subscriptionId) {
+  async close(subscriptionId) {
     if(subscriptionId) {
       return (await this.api.put(`subscriptions/${subscriptionId}/cancel`))
     }
     throw new Error('missing subscriptionId')
   }
-  async expireSubcription(subscriptionId) {
+  async expire(subscriptionId) {
     if(subscriptionId) {
       return (await this.api.put(`subscriptions/${subscriptionId}/expire`))
     }
     throw new Error('missing subscriptionId')
   }
-  async holdSubcription(subscriptionId) {
+  async hold(subscriptionId) {
     if(subscriptionId) {
       return (await this.api.put(`subscriptions/${subscriptionId}/hold`))
     }
     throw new Error('missing subscriptionId')
   }
-  async resumeSubcription(subscriptionId) {
+  async resume(subscriptionId) {
     if(subscriptionId) {
       return (await this.api.put(`subscriptions/${subscriptionId}/hold`))
     }
