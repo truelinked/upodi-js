@@ -38,7 +38,7 @@ describe('Get services', function() {
 describe('Create services', function() {
   describe('Customer', function() {
     it('Create customer', async function() {
-      expect(async () => await upodi.customers.create({fullname: "test georgi"})).to.not.throw()
+      expect(async () => await upodi.customers.create({fullname: "test georgi", primaryemail:"test@example.com"})).to.not.throw()
     })
   })
   describe('PaymentMethods', function() {
@@ -103,10 +103,18 @@ describe('PUT Services', function() {
       expect(async () => await upodi.subscriptions.resumeSubcription(subscriptions.items[0].ID)).to.not.throw()
     })
   })
-  describe('subcriptionCharge', function() {
-    it('Set Amount subcription', async function() {
+  describe('Subcription Charge', function() {
+    it('Set Amount', async function() {
+      var subscriptions = await upodi.subscriptionCharges.list()
+      expect(async () => await upodi.subscriptionCharges.setPrice(subscriptions.items[0].ID, 100)).to.not.throw()
+    })
+
+    it('Set Next Charge Date', async function() {
       var subscriptions = await upodi.subscriptions.list()
-      expect(async () => await upodi.subscriptionCharges.setAmount(subscriptions.items[0].ID, 100)).to.not.throw()
+      var charges = await upodi.subscriptionCharges.query({SubscriptionId: subscriptions.items[0].ID})
+      var date = new Date()
+      date.setFullYear(date.getFullYear() + 1)
+      expect(async () => await upodi.subscriptionCharges.setChargeDate(charges.items[0].ID, date)).to.not.throw()
     })
   })
 })
