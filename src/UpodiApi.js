@@ -3,6 +3,7 @@
 const ApiError = require('./UpodiApiError')
 const services = require('./service')
 const https = require('https')
+const querystring = require('querystring');
 
 const UPODI_API_SERVER = 'api.upodi.io'
 const UPODI_API_VERSION = 'v3'
@@ -41,11 +42,11 @@ module.exports = class UpodiApi {
 
     return new Promise((resolve, reject) => {
       const bearer = Buffer.from(this.__apiKey).toString('base64')
+      const qs = querystring.stringify(query)
       var options = {
         host: UPODI_API_SERVER,
-        path: `/${UPODI_API_VERSION}/${path}`,
+        path: `/${UPODI_API_VERSION}/${path}?${qs}`,
         method: method,
-        qs: JSON.stringify(query),
         body: JSON.stringify(body),
         headers: {
           accept: 'application/json; charset=utf-8',
