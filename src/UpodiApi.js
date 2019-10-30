@@ -73,11 +73,7 @@ module.exports = class UpodiApi {
 
         resp.on('end', () => {
           try {
-            var json = JSON.parse(data)
-            data = {}
-            for (var key in json) {
-              data[key.toLowerCase()] = json[key]
-            }
+            data = JSON.parse(data)
           } catch (ex) {
             return reject(new ApiError('Error parsing result', ex))
           }
