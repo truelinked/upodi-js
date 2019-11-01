@@ -1,6 +1,6 @@
 {
   "name": "upodi",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Unofficial library for consuming the upodi.com API",
   "main": "src/index.js",
   "scripts": {

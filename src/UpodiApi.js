@@ -27,15 +27,20 @@ module.exports = class UpodiApi {
     }
   }
 
+  async get(path, query) {
+    return this.send(path, 'GET', query, null)
+  }
+
   async put(path, query = null, body = null){
     return this.send(path, 'PUT', query, body)
   }
+  
   async post(path, body) {
     return this.send(path, 'POST', null, body)
   }
 
-  async get(path, query) {
-    return this.send(path, 'GET', query, null)
+  async delete(path) {
+    return this.send(path, 'DELETE', null, null)
   }
 
   async send(path, method = 'GET', query = {}, body = null) {
