@@ -22,7 +22,10 @@ module.exports = class PaymentMethodService {
     }
 
     throw new Error('Invalid parameters for creating payment method')
+  }
 
+  async delete(paymentMethodId) {
+    return (await this.api.delete(`paymentmethods/${paymentMethodId}`, null))
   }
 
   async createFull(customerId, paymentmethod) {
