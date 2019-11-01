@@ -22,11 +22,9 @@ module.exports = class SubscriptionChargesService {
     query.pagesize = opt.pagesize || 100
     query.pagenumber = opt.pagenumber || 1
     
-    if (opt.SubscriptionId) {
-      query.$filter = `SubscriptionID eq guid'${opt.SubscriptionId}'`
+    if (opt.SubscriptionID) {
+      query.$filter = `SubscriptionID eq guid'${opt.SubscriptionID}'`
     }
-
-    // "ProductPlanCharges/all(o: o/SKU eq '{SKU HERE}')"
 
     return await this.api.get('subscriptioncharges/query', query)
   }
