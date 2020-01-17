@@ -9,8 +9,8 @@ module.exports = class SubscriptionService {
   async list(opt) {
 
     opt = opt || {}
-    opt.pagesize = opt.pagesize || 100
-    opt.pagenumber = opt.pagenumber || 1
+    opt.$pagesize = opt.pagesize || 100
+    opt.$pagenumber = opt.pagenumber || 1
 
     return await this.api.get('subscriptions', opt)
   }

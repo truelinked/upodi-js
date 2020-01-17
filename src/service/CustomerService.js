@@ -10,9 +10,9 @@ module.exports = class CustomerService {
   async list(opt) {
 
     opt = opt || {}
-    opt.pagesize = opt.pagesize || 100
-    opt.pagenumber = opt.pagenumber || 1
-
+    opt.$pagesize = opt.pagesize || 100
+    opt.$pagenumber = opt.pagenumber || 1
+    
     return await this.api.get('customers', opt)
   }
 
@@ -29,7 +29,7 @@ module.exports = class CustomerService {
     throw new TypeError('Invalid parameters for creating customer')
 
   }
-
+  
   async getByAccountNumber(accNumber) {
     if (!accNumber) {
       throw new Error('Invalid account number')
@@ -66,6 +66,9 @@ module.exports = class CustomerService {
     }
 
     return (await this.api.post('customers', customer))
+  }
 
+  async update(id, customer) {
+    return (await this.api.patch(`customers/${id}`, customer))
   }
 }

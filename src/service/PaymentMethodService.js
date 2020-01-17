@@ -7,12 +7,13 @@ module.exports = class PaymentMethodService {
 
   }
 
-  async list(customerId, opt) {
-    opt = opt || {}
-    opt.pagesize = opt.pagesize || 100
-    opt.pagenumber = opt.pagenumber || 1
+  async list(opt) {
 
-    return await this.api.get(`paymentmethods/${customerId}`, opt)
+    opt = opt || {}
+    opt.$pagesize = opt.pagesize || 100
+    opt.$pagenumber = opt.pagenumber || 1
+
+    return await this.api.get(`paymentmethods`, opt)
   }
 
   async create() {
@@ -25,7 +26,7 @@ module.exports = class PaymentMethodService {
   }
 
   async delete(paymentMethodId) {
-    return (await this.api.delete(`paymentmethods/${paymentMethodId}`, null))
+    return (await this.api.delete(`paymentmethods/${paymentMethodId}`))
   }
 
   async createFull(customerId, paymentmethod) {

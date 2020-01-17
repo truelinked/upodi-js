@@ -31,8 +31,12 @@ module.exports = class UpodiApi {
     return this.send(path, 'GET', query, null)
   }
 
-  async put(path, query = null, body = null){
-    return this.send(path, 'PUT', query, body)
+  async put(path, body = null){
+    return this.send(path, 'PUT', null, body)
+  }
+
+  async patch(path, body = null){
+    return this.send(path, 'PATCH', null, body)
   }
   
   async post(path, body) {
@@ -57,7 +61,8 @@ module.exports = class UpodiApi {
           accept: 'application/json; charset=utf-8',
           'content-type': 'application/json',
           Authorization: `bearer ${bearer}`
-        }
+        },
+        timeout: 60000,
       }
 
       const req = https.request(options, resp => {
@@ -91,6 +96,7 @@ module.exports = class UpodiApi {
         })
 
       }).on("error", (err) => {
+        console.error(options)
         reject(new ApiError(err.message, err))
       })
 
