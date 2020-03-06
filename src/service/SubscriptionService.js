@@ -72,38 +72,51 @@ module.exports = class SubscriptionService {
 
   }
 
-  async activate(subscriptionId) {
-    if (subscriptionId) {
-      return (await this.api.put(`subscriptions/${subscriptionId}/activate`))
+  async delete(subscriptionId) {
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
     }
-    throw new Error('missing subscriptionId')
+
+    return (await this.api.delete(`subscriptions/${subscriptionId}`))
   }
 
-  async close(subscriptionId) {
-    if (subscriptionId) {
-      return (await this.api.put(`subscriptions/${subscriptionId}/cancel`))
+  async activate(subscriptionId) {
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
     }
-    throw new Error('missing subscriptionId')
+
+    return (await this.api.put(`subscriptions/${subscriptionId}/activate`))
+  }
+
+  async cancel(subscriptionId) {
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
+    }
+
+    return (await this.api.put(`subscriptions/${subscriptionId}/cancel`))
   }
 
   async expire(subscriptionId) {
-    if (subscriptionId) {
-      return (await this.api.put(`subscriptions/${subscriptionId}/expire`))
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
     }
-    throw new Error('missing subscriptionId')
+
+    return (await this.api.put(`subscriptions/${subscriptionId}/expire`))
   }
 
   async hold(subscriptionId) {
-    if (subscriptionId) {
-      return (await this.api.put(`subscriptions/${subscriptionId}/hold`))
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
     }
-    throw new Error('missing subscriptionId')
+
+    return (await this.api.put(`subscriptions/${subscriptionId}/hold`))
   }
 
   async resume(subscriptionId) {
-    if (subscriptionId) {
-      return (await this.api.put(`subscriptions/${subscriptionId}/hold`))
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
     }
-    throw new Error('missing subscriptionId')
+
+    return (await this.api.put(`subscriptions/${subscriptionId}/hold`))
   }
 }
