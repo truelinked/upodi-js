@@ -72,6 +72,14 @@ module.exports = class SubscriptionService {
 
   }
 
+  async get(subscriptionId) {
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
+    }
+
+    return (await this.api.get(`subscriptions/${subscriptionId}`))
+  }
+
   async delete(subscriptionId) {
     if (!subscriptionId) {
       throw new Error('missing subscriptionId')
