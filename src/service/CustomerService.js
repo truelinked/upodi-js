@@ -30,6 +30,14 @@ module.exports = class CustomerService {
 
   }
   
+  async get(customerId) {
+    if (!customerId) {
+      throw new Error('missing customerId')
+    }
+
+    return (await this.api.get(`customers/${customerId}`))
+  }
+
   async getByAccountNumber(accNumber) {
     if (!accNumber) {
       throw new Error('Invalid account number')
