@@ -28,4 +28,12 @@ module.exports = class InvoiceService {
 
     return await this.api.get('invoices/query', query)
   }
+
+  async get(invoiceId) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId')
+    }
+
+    return (await this.api.get(`invoices/${invoiceId}`))
+  }
 }
