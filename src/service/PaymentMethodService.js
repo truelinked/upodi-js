@@ -16,6 +16,14 @@ module.exports = class PaymentMethodService {
     return await this.api.get(`paymentmethods`, opt)
   }
 
+  async get(paymentMethodId) {
+    if (!paymentMethodId) {
+      throw new Error('missing paymentMethodId')
+    }
+
+    return (await this.api.get(`transactions/${paymentMethodId}`))
+  }
+
   async create() {
 
     if (arguments.length === 2 && typeof arguments[1] === 'object') {
