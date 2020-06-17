@@ -21,7 +21,7 @@ module.exports = class PaymentMethodService {
       throw new Error('missing paymentMethodId')
     }
 
-    return (await this.api.get(`transactions/${paymentMethodId}`))
+    return (await this.api.get(`paymentmethods/${paymentMethodId}`))
   }
 
   async create() {
