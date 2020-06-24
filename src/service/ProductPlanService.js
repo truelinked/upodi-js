@@ -7,6 +7,14 @@ module.exports = class ProductplanService {
 
   }
 
+  async get(productPlanId) {
+    if (!productPlanId) {
+      throw new Error('missing productPlanId')
+    }
+
+    return (await this.api.get(`productPlans/${productPlanId}`))
+  }
+  
   async list(opt) {
     
     opt = opt || {}
