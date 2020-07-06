@@ -22,9 +22,22 @@ module.exports = class InvoiceService {
     query.pagesize = opt.pagesize || 100
     query.pagenumber = opt.pagenumber || 1
     
+    var filter = [];
     if (opt.CustomerID) {
-      query.$filter = `CustomerID eq guid'${opt.CustomerID}'`
+      filter.push(`CustomerID eq guid'${opt.CustomerID}'`);
     }
+
+    if (opt.SubscriptionID) {
+      filter.push(`SubscriptionID eq guid'${opt.SubscriptionID}'`);
+    }
+
+    if (opt.PaymentMethodID) {
+      filter.push(`PaymentMethodID eq guid'${opt.PaymentMethodID}'`);
+    }
+
+    if (filter.length > 0) {
+      query.$filter = filter.join(' and ')
+    } 
 
     return await this.api.get('invoices/query', query)
   }
