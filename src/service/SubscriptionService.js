@@ -23,9 +23,20 @@ module.exports = class SubscriptionService {
     query.pagesize = opt.pagesize || 100
     query.pagenumber = opt.pagenumber || 1
 
+    let filter = [];
     if (opt.CustomerID) {
-      query.$filter = `CustomerID eq guid'${opt.CustomerID}'`
+      filter.push(`CustomerID eq guid'${opt.CustomerID}'`);
     }
+
+    if(opt.StateCode) {
+      filter.push(`StateCode eq '${opt.StateCode}'`);
+    }
+
+    if(opt.Status) {
+      filter.push(`Status eq ${opt.Status}`);
+    }
+
+    query.$filter = filter.join(' and ');
 
     return await this.api.get('subscriptions/query', query)
   }
