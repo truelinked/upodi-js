@@ -32,6 +32,10 @@ module.exports = class SubscriptionService {
       filter.push(`StateCode eq '${opt.StateCode}'`);
     }
 
+    if(opt.Status) {
+      filter.push(`Status eq ${opt.Status}`);
+    }
+
     query.$filter = filter.join(' and ');
 
     return await this.api.get('subscriptions/query', query)
