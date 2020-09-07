@@ -49,4 +49,16 @@ module.exports = class InvoiceService {
 
     return (await this.api.get(`invoices/${invoiceId}`))
   }
+
+  async download(invoiceId, filename) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId')
+    }
+
+    if (!filename) {
+      throw new Error('missing filename')
+    }
+
+    return (await this.api.get(`invoices/${invoiceId}/getpdfwithid`, null, filename));
+  }
 }
