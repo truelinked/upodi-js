@@ -2,6 +2,7 @@
 
 const ApiError = require('./UpodiApiError')
 const services = require('./service')
+const fs = require('fs');
 const https = require('https')
 const querystring = require('querystring');
 
@@ -27,8 +28,8 @@ module.exports = class UpodiApi {
     }
   }
 
-  async get(path, query) {
-    return this.send(path, 'GET', query, null)
+  async get(path, query, filename = null) {
+    return this.send(path, 'GET', query, null, filename)
   }
 
   async put(path, body = null){
@@ -47,7 +48,7 @@ module.exports = class UpodiApi {
     return this.send(path, 'DELETE', null, null)
   }
 
-  async send(path, method = 'GET', query = {}, body = null) {
+  async send(path, method = 'GET', query = {}, body = null, filename = null) {
 
     return new Promise((resolve, reject) => {
       const bearer = Buffer.from(this.__apiKey).toString('base64')
@@ -75,28 +76,40 @@ module.exports = class UpodiApi {
               return resolve(null)
         }
 
-        let data = '';
+        if(filename) {
+          let stream = fs.createWriteStream(filename);
+          resp.on('data', chunk => stream.write(chunk));
+          resp.on('end', () => {
+            stream.close();
+            resolve(filename);
+          });
+          stream.on('error', err => {
+            req.end();
+            return reject(err);
+          })
+        }
+        else {
+          let data = '';
 
-        resp.on('data', (chunk) => {
-          data += chunk;
-        })
-
-        resp.on('end', () => {
-          try {
-            data = JSON.parse(data)
-          } catch (ex) {
-            return reject(new ApiError('Error parsing result', ex))
-          }
-
-          if (status>300) {
-            return reject(new ApiError(data))
-          }
-
-          return resolve(data)
-        })
-
+          resp.on('data', (chunk) => {
+            data += chunk;
+          })
+  
+          resp.on('end', () => {
+            try {
+              data = JSON.parse(data)
+            } catch (ex) {
+              return reject(new ApiError('Error parsing result', ex))
+            }
+  
+            if (status>300) {
+              return reject(new ApiError(data))
+            }
+  
+            return resolve(data)
+          })
+        }
       }).on("error", (err) => {
-        console.error(options)
         reject(new ApiError(err.message, err))
       })
 
