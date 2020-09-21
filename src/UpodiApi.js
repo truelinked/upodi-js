@@ -99,10 +99,15 @@ module.exports = class UpodiApi {
             try {
               data = JSON.parse(data)
             } catch (ex) {
-              return reject(new ApiError('Error parsing result', ex))
+              if (method !== 'DELETE') {
+                return reject(new ApiError('Error parsing result', ex))
+              }
             }
   
             if (status>300) {
+              if (data && typeof(data) === 'object') {
+                data.message = data.Message
+              }
               return reject(new ApiError(data))
             }
   
