@@ -50,6 +50,50 @@ module.exports = class InvoiceService {
     return (await this.api.get(`invoices/${invoiceId}`))
   }
 
+  async create(invoice) {
+    return (await this.api.post('invoices', invoice))
+  }
+
+  async cancel(invoiceId) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId')
+    }
+
+    return (await this.api.put(`invoices/${invoiceId}/cancel`));
+  }
+
+  async book(invoiceId) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId')
+    }
+
+    return (await this.api.put(`invoices/${invoiceId}/book`));
+  }
+
+  async markPaid(invoiceId) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId')
+    }
+
+    return (await this.api.put(`invoices/${invoiceId}/mark-paid`));
+  }
+
+  async refund(invoiceId) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId')
+    }
+
+    return (await this.api.put(`invoices/${invoiceId}/refund`));
+  }
+
+  async delete(invoiceId) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId')
+    }
+
+    return (await this.api.delete(`invoices/${invoiceId}`))
+  }
+
   async download(invoiceId, filename) {
     if (!invoiceId) {
       throw new Error('missing invoiceId')
