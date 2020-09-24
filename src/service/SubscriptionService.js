@@ -138,4 +138,12 @@ module.exports = class SubscriptionService {
 
     return (await this.api.put(`subscriptions/${subscriptionId}/hold`))
   }
+
+  async update(subscription) {
+    if (!subscription) {
+      throw new Error('missing subscription data')
+    }
+    const result = await this.api.put(`subscriptions`, subscription)
+    return result
+  }
 }
