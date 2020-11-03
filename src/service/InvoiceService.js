@@ -105,4 +105,12 @@ module.exports = class InvoiceService {
 
     return (await this.api.get(`invoices/${invoiceId}/getpdfwithid`, null, filename));
   }
+
+  async duplicate(invoiceId, reverse) {
+    if (!invoiceId) {
+      throw new Error('missing invoiceId');
+    }
+
+    return (await this.api.post(`invoices/${invoiceId}/duplicate`, { reverse: !!reverse }));
+  }
 }
