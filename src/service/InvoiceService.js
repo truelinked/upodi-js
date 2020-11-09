@@ -70,12 +70,16 @@ module.exports = class InvoiceService {
     return (await this.api.put(`invoices/${invoiceId}/book`));
   }
 
-  async markPaid(invoiceId) {
+  async markPaid(invoiceId, paymentDate) {
     if (!invoiceId) {
       throw new Error('missing invoiceId')
     }
+    let body = { };
+    if (paymentDate) {
+      body.PaymentDate = paymentDate;
+    }
 
-    return (await this.api.put(`invoices/${invoiceId}/mark-paid`));
+    return (await this.api.put(`invoices/${invoiceId}/markpaid`, paymentDate));
   }
 
   async refund(invoiceId) {
