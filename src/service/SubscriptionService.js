@@ -107,6 +107,14 @@ module.exports = class SubscriptionService {
     return (await this.api.put(`subscriptions/${subscriptionId}/activate`))
   }
 
+  async deactivate(subscriptionId) {
+    if (!subscriptionId) {
+      throw new Error('missing subscriptionId')
+    }
+
+    return (await this.api.put(`subscriptions/${subscriptionId}/deactivate`))
+  }
+
   async cancel(subscriptionId) {
     if (!subscriptionId) {
       throw new Error('missing subscriptionId')
